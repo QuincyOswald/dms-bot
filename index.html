@@ -5,7 +5,7 @@
     <script src="datehelper.js"></script>
     <style>
         .tableRow {
-            width: 300px;
+            width: 200px;
             max-width: 300;
         }
 
@@ -17,8 +17,8 @@
 
         .textbox {
             width: inherit;
-            max-width: 300px;
-            min-width: 300px;
+            max-width: 200px;
+            min-width: 200px;
             height: 100%;
             padding: 10px;
             font-family: inherit;
@@ -43,13 +43,14 @@
         }
 
         #bodyholder {
-            width: 900px;
+            width: 700px;
             height: 80%;
             margin: auto;
             border-radius: .25rem;
             border: 0;
             box-shadow: 0 0 9px 1px rgba(0,0,0,.18);
             padding: 25px;
+            padding-bottom: 50px;
             margin-top: 50px;
             margin-bottom: 50px;
             background-color: white;
@@ -71,6 +72,7 @@
 
         #thetable {
             height: 90%;
+            margin: auto
         }
 
         #controlHolder {
@@ -176,6 +178,33 @@
             box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .5)
         }
 
+        .btn-clear {
+            color: #0275d8;
+            background-color: #fff;
+            border-color: #0275d8
+        }
+
+        .btn-clear:hover {
+            color: #fff;
+            background-color: #0275d8;
+            border-color: #025aa5
+        }
+
+        .btn-clear.disabled,
+        .btn-clear:disabled {
+            color: #fff;
+            background-color: #0275d8;
+            border-color: #0275d8
+        }
+
+        .btn-clear:not(:disabled):not(.disabled).active,
+        .btn-clear:not(:disabled):not(.disabled):active,
+        .show>.btn-clear.dropdown-toggle {
+            color: #fff;
+            background-color: #025aa5;
+            border-color: #015399
+        }
+
         body {
             font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
             background-color: #eef4fb;
@@ -195,12 +224,12 @@
             <tbody>
                 <tr>
                     <td class="tableRow">
-                        <textarea id="dateTextbox" class="textbox" placeholder="Type date here"></textarea>
+                        <textarea id="dateTextbox" class="textbox" placeholder="Paste dates here"></textarea>
                     </td>
                     <td class="tableRow">
                         <div id="controlHolder">
                             <div class="center" id="clearButton">
-                                <button onclick="clearTextboxes()" class="button btn btn-primary">Clear</button>
+                                <button onclick="clearTextboxes()" class="button btn btn-clear">Clear</button>
                             </div>
                             <div id="periodPicker">
                                 <div class="center">
@@ -216,13 +245,13 @@
                                     </form>
                                 </div>
                                 <div class="center">
-                                    <button onclick="createPeriods()" class="button btn btn-primary">Log In</button>
+                                    <button onclick="createPeriods()" class="button btn btn-primary">Convert</button>
                                 </div>
                             </div>
                         </div>
                     </td>
                     <td class="tableRow">
-                        <textarea id="output" class="textbox" placeholder="Result will appear here" readonly></textarea>
+                        <textarea id="output" class="textbox" placeholder="Results will appear here" readonly></textarea>
                     </td>
                 </tr>
             </tbody>

@@ -1,0 +1,233 @@
+<html>
+
+<head>
+    <title>Date2Period Convertor</title>
+    <script src="datehelper.js"></script>
+    <style>
+        .tableRow {
+            width: 300px;
+            max-width: 300;
+        }
+
+        h1 {
+            color: #355075;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .textbox {
+            width: inherit;
+            max-width: 300px;
+            min-width: 300px;
+            height: 100%;
+            padding: 10px;
+            font-family: inherit;
+            width: 100%;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+        }
+
+        .textbox:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #5cb3fd;
+            outline: 0;
+            -webkit-box-shadow: 0 0 0 0.2rem rgba(2,117,216,.25);
+            box-shadow: 0 0 0 0.2rem rgba(2,117,216,.25);
+        }
+
+        #bodyholder {
+            width: 900px;
+            height: 80%;
+            margin: auto;
+            border-radius: .25rem;
+            border: 0;
+            box-shadow: 0 0 9px 1px rgba(0,0,0,.18);
+            padding: 25px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            background-color: white;
+        }
+
+        .button {
+            width: 100%;
+        }
+
+        .center {
+            width: 150px;
+            margin: auto;
+            margin-top: 10px;
+        }
+
+        #periodPicker {
+            margin-top: 50%;
+        }
+
+        #thetable {
+            height: 90%;
+        }
+
+        #controlHolder {
+            height: 100%;
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: .2rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out
+        }
+
+        @media screen and (prefers-reduced-motion:reduce) {
+            .btn {
+                -webkit-transition: none;
+                transition: none
+            }
+        }
+
+        .btn:focus,
+        .btn:hover {
+            text-decoration: none
+        }
+
+        .btn.focus,
+        .btn:focus {
+            outline: 0;
+            -webkit-box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .25);
+            box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .25)
+        }
+
+        .btn.disabled,
+        .btn:disabled {
+            opacity: .65
+        }
+
+        .btn:not(:disabled):not(.disabled) {
+            cursor: pointer
+        }
+
+        .btn:not(:disabled):not(.disabled).active,
+        .btn:not(:disabled):not(.disabled):active {
+            background-image: none
+        }
+
+        a.btn.disabled,
+        fieldset:disabled a.btn {
+            pointer-events: none
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #0275d8;
+            border-color: #0275d8
+        }
+
+        .btn-primary:hover {
+            color: #fff;
+            background-color: #0260b2;
+            border-color: #025aa5
+        }
+
+        .btn-primary.focus,
+        .btn-primary:focus {
+            -webkit-box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .5);
+            box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .5)
+        }
+
+        .btn-primary.disabled,
+        .btn-primary:disabled {
+            color: #fff;
+            background-color: #0275d8;
+            border-color: #0275d8
+        }
+
+        .btn-primary:not(:disabled):not(.disabled).active,
+        .btn-primary:not(:disabled):not(.disabled):active,
+        .show>.btn-primary.dropdown-toggle {
+            color: #fff;
+            background-color: #025aa5;
+            border-color: #015399
+        }
+
+        .btn-primary:not(:disabled):not(.disabled).active:focus,
+        .btn-primary:not(:disabled):not(.disabled):active:focus,
+        .show>.btn-primary.dropdown-toggle:focus {
+            -webkit-box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .5);
+            box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .5)
+        }
+
+        body {
+            font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+            background-color: #eef4fb;
+        }
+
+        label {
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bodyholder">
+        <h1>Date2Period Convertor</h1>
+        <!-- <span>Type Date Here:</span><br> -->
+        <table id="thetable">
+            <tbody>
+                <tr>
+                    <td class="tableRow">
+                        <textarea id="dateTextbox" class="textbox" placeholder="Type date here"></textarea>
+                    </td>
+                    <td class="tableRow">
+                        <div id="controlHolder">
+                            <div class="center" id="clearButton">
+                                <button onclick="clearTextboxes()" class="button btn btn-primary">Clear</button>
+                            </div>
+                            <div id="periodPicker">
+                                <div class="center">
+                                    <form id="periodRadio">
+                                        <input type="radio" id="monthly" name="period" value="monthly" checked>
+                                        <label for="monthly">Monthly</label><br>
+                                        <input type="radio" id="quarterly" name="period" value="quarterly">
+                                        <label for="quarterly">Quarterly</label><br>
+                                        <input type="radio" id="semiannually" name="period" value="semiannually">
+                                        <label for="semiannually">Semiannually</label><br>
+                                        <input type="radio" id="yearly" name="period" value="yearly">
+                                        <label for="yearly">Yearly</label>
+                                    </form>
+                                </div>
+                                <div class="center">
+                                    <button onclick="createPeriods()" class="button btn btn-primary">Log In</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tableRow">
+                        <textarea id="output" class="textbox" placeholder="Result will appear here" readonly></textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

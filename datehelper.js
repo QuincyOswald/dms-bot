@@ -82,6 +82,13 @@ function clearTextboxes() {
     document.getElementById("output").value = "";
 }
 
+function copyDates() {
+    var copyText = document.getElementById("output");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+}
+
 var timeOffset = new Date().getTimezoneOffset();
 if (timeOffset < 0) {
     alert("Sorry, this app doesn't work if you are east of England. Too bad!");

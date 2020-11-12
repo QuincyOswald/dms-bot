@@ -33,6 +33,7 @@
             background-clip: padding-box;
             border: 1px solid #ced4da;
             border-radius: .25rem;
+            resize: none;
         }
 
         .textbox:focus {
@@ -235,7 +236,7 @@
             <tbody>
                 <tr>
                     <td class="tableRow">
-                        <textarea id="dateTextbox" class="textbox" placeholder="Paste dates here"></textarea>
+                        <textarea id="dateTextbox" onscroll="syncScroll()" class="textbox" placeholder="Paste dates here" wrap="off"></textarea>
                     </td>
                     <td class="tableRow">
                         <div id="controlHolder">
@@ -265,7 +266,7 @@
                         </div>
                     </td>
                     <td class="tableRow">
-                        <textarea id="output" class="textbox" placeholder="Results will appear here" readonly></textarea>
+                        <textarea id="output" class="textbox" onscroll="syncScrollReverse()" placeholder="Results will appear here" readonly></textarea>
                     </td>
                 </tr>
             </tbody>

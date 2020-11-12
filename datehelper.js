@@ -75,6 +75,8 @@ function createPeriods() {
     } else if (errorCount > 0) {
         alert(`There were ${errorCount} errors`);
     }
+
+    syncScroll();
 }
 
 function clearTextboxes() {
@@ -87,6 +89,18 @@ function copyDates() {
     copyText.select();
     copyText.setSelectionRange(0, 99999);
     document.execCommand("copy");
+}
+
+function syncScroll() {
+    var input = document.getElementById("dateTextbox");
+    var output = document.getElementById("output");
+    output.scrollTop = input.scrollTop
+}
+
+function syncScrollReverse() {
+    var input = document.getElementById("dateTextbox");
+    var output = document.getElementById("output");
+    input.scrollTop = output.scrollTop
 }
 
 var timeOffset = new Date().getTimezoneOffset();

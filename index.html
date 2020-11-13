@@ -3,7 +3,7 @@
 <head>
     <title>Time Saver 5000</title>
     <script src="datehelper.js"></script>
-    <link rel="icon" type="image/png" href="favicon.png"/>
+    <link rel="icon" type="image/png" href="favicon.png" />
     <style>
         .tableRow {
             width: 200px;
@@ -41,8 +41,8 @@
             background-color: #fff;
             border-color: #5cb3fd;
             outline: 0;
-            -webkit-box-shadow: 0 0 0 0.2rem rgba(2,117,216,.25);
-            box-shadow: 0 0 0 0.2rem rgba(2,117,216,.25);
+            -webkit-box-shadow: 0 0 0 0.2rem rgba(2, 117, 216, .25);
+            box-shadow: 0 0 0 0.2rem rgba(2, 117, 216, .25);
         }
 
         #bodyholder {
@@ -51,11 +51,12 @@
             margin: auto;
             border-radius: .25rem;
             border: 0;
-            box-shadow: 0 0 9px 1px rgba(0,0,0,.18);
+            box-shadow: 0 0 9px 1px rgba(0, 0, 0, .18);
             padding: 25px;
             margin-top: 50px;
             margin-bottom: 50px;
             background-color: white;
+            min-height: 400px;
         }
 
         .button {
@@ -208,13 +209,13 @@
         }
 
         body {
-            font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
             background-color: #eef4fb;
             padding: 0px;
             margin: 0px;
         }
 
-        label {
+        .radiolabel {
             color: #6c757d;
         }
 
@@ -224,19 +225,134 @@
             background-color: #355075;
             padding-top: 10px;
         }
+
+        .Switcher {
+            position: relative;
+            display: -webkit-box;
+            display: flex;
+            border-radius: .25rem;
+            box-shadow: inset 0 0 0 1px;
+            overflow: hidden;
+            cursor: pointer;
+            -webkit-animation: r-n .5s;
+            animation: r-n .5s;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            /* font-size: 3vmin; */
+            will-change: transform;
+        }
+
+        .Switcher__checkbox:checked+.Switcher {
+            -webkit-animation-name: r-p;
+            animation-name: r-p;
+        }
+
+        .Switcher::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 200%;
+            border-radius: inherit;
+            background-color: #0275d8;
+            -webkit-transform: translateX(-75%);
+            transform: translateX(-75%);
+            -webkit-transition: -webkit-transform .5s ease-in-out;
+            transition: -webkit-transform .5s ease-in-out;
+            transition: transform .5s ease-in-out;
+            transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
+        }
+
+        .Switcher__checkbox:checked+.Switcher::before {
+            -webkit-transform: translateX(25%);
+            transform: translateX(25%);
+        }
+
+        .Switcher__trigger {
+            position: relative;
+            z-index: 1;
+            padding: 5.5px 17px;
+        }
+
+        .Switcher__trigger::after {
+            content: attr(data-value);
+        }
+
+        .Switcher__trigger::before {
+            --i: var(--x);
+            content: attr(data-value);
+            position: absolute;
+            color: white;
+            -webkit-transition: opacity .3s;
+            transition: opacity .3s;
+            opacity: calc((var(--i) + 1) / 2);
+            -webkit-transition-delay: calc(.3s * (var(--i) - 1) / -2);
+            transition-delay: calc(.3s * (var(--i) - 1) / -2);
+        }
+
+        .Switcher__checkbox:checked+.Switcher .Switcher__trigger::before {
+            --i: calc(var(--x) * -1);
+        }
+
+        .Switcher__trigger:nth-of-type(1)::before {
+            --x: 1;
+        }
+
+        .Switcher__trigger:nth-of-type(2)::before {
+            --x: -1;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .box {
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-flex: 1;
+            flex: 1;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            flex-wrap: wrap;
+            overflow: hidden;
+            -webkit-perspective: 750px;
+            perspective: 750px;
+            margin-bottom: 10px;
+            color: #0275d8;
+        }
+
+        #togglelabel {
+            color: #6c757d;
+            text-align: center;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 
 <body>
     <div id="banner">
-        <h1>Time Saver 500<span style="cursor: pointer;" onclick="document.location='https://www.youtube.com/watch?v=dQw4w9WgXcQ'">0</span></h1>
+        <h1>🤖 DM Bot 500<span style="cursor: pointer;"
+                onclick="document.location='https://www.youtube.com/watch?v=dQw4w9WgXcQ'">0</span></h1>
     </div>
     <div id="bodyholder">
         <table id="thetable">
             <tbody>
                 <tr>
                     <td class="tableRow">
-                        <textarea id="dateTextbox" onscroll="syncScroll()" class="textbox" placeholder="Paste dates here" wrap="off"></textarea>
+                        <textarea id="dateTextbox" onscroll="syncScroll()" class="textbox"
+                            placeholder="Paste dates here" wrap="off"></textarea>
                     </td>
                     <td class="tableRow">
                         <div id="controlHolder">
@@ -245,15 +361,23 @@
                             </div>
                             <div id="periodPicker">
                                 <div class="center">
+                                    <div id="togglelabel">Date-period relation</div>
+                                    <div class="box">
+                                        <input class="Switcher__checkbox sr-only" id="io" type="checkbox"/>
+                                        <label class="Switcher" for="io">
+                                            <div class="Switcher__trigger" data-value="Offset"></div>
+                                            <div class="Switcher__trigger" data-value="Same"></div>
+                                        </label>
+                                    </div>
                                     <form id="periodRadio">
                                         <input type="radio" id="monthly" name="period" value="monthly" checked>
-                                        <label for="monthly">Monthly</label><br>
+                                        <label for="monthly" class="radiolabel">Monthly</label><br>
                                         <input type="radio" id="quarterly" name="period" value="quarterly">
-                                        <label for="quarterly">Quarterly</label><br>
+                                        <label for="quarterly" class="radiolabel">Quarterly</label><br>
                                         <input type="radio" id="semiannually" name="period" value="semiannually">
-                                        <label for="semiannually">Semiannually</label><br>
+                                        <label for="semiannually" class="radiolabel">Semiannually</label><br>
                                         <input type="radio" id="yearly" name="period" value="yearly">
-                                        <label for="yearly">Yearly</label>
+                                        <label for="yearly" class="radiolabel">Yearly</label><br>
                                     </form>
                                 </div>
                                 <div class="center">
@@ -266,7 +390,8 @@
                         </div>
                     </td>
                     <td class="tableRow">
-                        <textarea id="output" class="textbox" onscroll="syncScrollReverse()" placeholder="Results will appear here" readonly></textarea>
+                        <textarea id="output" class="textbox" onscroll="syncScrollReverse()"
+                            placeholder="Periods will appear here" readonly></textarea>
                     </td>
                 </tr>
             </tbody>

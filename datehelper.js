@@ -16,25 +16,35 @@ var months = [
 var errorCount = 0;
 
 function createMonthlyPeriod(date) {
-    date.setUTCMonth(date.getUTCMonth() - 1, 15);
+    if (shouldOffset()) {
+        date.setUTCMonth(date.getUTCMonth() - 1, 15);
+    }
     return months[date.getUTCMonth()] + " " + date.getUTCFullYear();
 }
 
 function createQuarterlyPeriod(date) {
-    date.setUTCMonth(date.getUTCMonth() - 3, 15);
+    if (shouldOffset()) {
+        date.setUTCMonth(date.getUTCMonth() - 3, 15);
+    }
     var quarter = Math.floor(date.getUTCMonth() / 3) + 1;
     return `Q${quarter} ${date.getUTCFullYear()}`;
 }
 
 function createSemiannuallyPeriod(date) {
-    date.setUTCMonth(date.getUTCMonth() - 6, 15);
+    if (shouldOffset()) {
+        date.setUTCMonth(date.getUTCMonth() - 6, 15);
+    }
     var half = Math.floor(date.getUTCMonth() / 6);
     var display = half == 0 ? "Jan-Jun" : "Jul-Dec";
     return `${display} ${date.getUTCFullYear()}`;
 }
 
 function createYearlyPeriod(date) {
-    return date.getUTCFullYear() - 1;
+    if (shouldOffset()) {
+        return date.getUTCFullYear() - 1;
+    } else {
+        return date.getUTCFullYear();
+    }
 }
 
 var periodTypeToFunction = {
@@ -77,6 +87,10 @@ function createPeriods() {
     }
 
     syncScroll();
+}
+
+function shouldOffset() {
+    return !document.getElementById("io").checked;
 }
 
 function clearTextboxes() {

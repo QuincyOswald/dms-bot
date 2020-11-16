@@ -1,5 +1,402 @@
 <html>
-    <head>
-        <script src="parse-address.min.js"></script>
-    </head>
+
+<head>
+    <title>DMS Bot 500</title>
+    <script src="parse-address.min.js"></script>
+    <script src="address.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnoGMputY1fgZIKv_Zn--n9liVKoiUKs4&callback=initMap&libraries=&v=weekly"
+        defer></script>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <style>
+        .tableRow {
+            height: 50%;
+            margin: 20px;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            font-family: inherit;
+            margin: 0px;
+        }
+
+        .textbox {
+            width: inherit;
+            padding: 10px;
+            font-family: inherit;
+            height: 100%;
+            width: 100%;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            resize: none;
+        }
+
+        .textbox:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #5cb3fd;
+            outline: 0;
+            -webkit-box-shadow: 0 0 0 0.2rem rgba(2, 117, 216, .25);
+            box-shadow: 0 0 0 0.2rem rgba(2, 117, 216, .25);
+        }
+
+        #bodyholder {
+            width: 700px;
+            height: 70%;
+            margin: auto;
+            border-radius: .25rem;
+            border: 0;
+            box-shadow: 0 0 9px 1px rgba(0, 0, 0, .18);
+            padding: 25px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            background-color: white;
+            min-height: 400px;
+        }
+
+        .button {
+            width: 100%;
+        }
+
+        .center {
+            width: 150px;
+            margin: auto;
+            margin-top: 10px;
+        }
+
+        #periodPicker {
+            margin-top: 60%;
+        }
+
+        #theTable {
+            height: 100%;
+            width: 100%;
+            margin: auto
+        }
+
+        #controlHolder {}
+
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: .2rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out
+        }
+
+        @media screen and (prefers-reduced-motion:reduce) {
+            .btn {
+                -webkit-transition: none;
+                transition: none
+            }
+        }
+
+        .btn:focus,
+        .btn:hover {
+            text-decoration: none
+        }
+
+        .btn.focus,
+        .btn:focus {
+            outline: 0;
+            -webkit-box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .25);
+            box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .25)
+        }
+
+        .btn.disabled,
+        .btn:disabled {
+            opacity: .65
+        }
+
+        .btn:not(:disabled):not(.disabled) {
+            cursor: pointer
+        }
+
+        .btn:not(:disabled):not(.disabled).active,
+        .btn:not(:disabled):not(.disabled):active {
+            background-image: none
+        }
+
+        a.btn.disabled,
+        fieldset:disabled a.btn {
+            pointer-events: none
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #0275d8;
+            border-color: #0275d8
+        }
+
+        .btn-primary:hover {
+            color: #fff;
+            background-color: #0260b2;
+            border-color: #025aa5
+        }
+
+        .btn-primary.focus,
+        .btn-primary:focus {
+            -webkit-box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .5);
+            box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .5)
+        }
+
+        .btn-primary.disabled,
+        .btn-primary:disabled {
+            color: #fff;
+            background-color: #0275d8;
+            border-color: #0275d8
+        }
+
+        .btn-primary:not(:disabled):not(.disabled).active,
+        .btn-primary:not(:disabled):not(.disabled):active,
+        .show>.btn-primary.dropdown-toggle {
+            color: #fff;
+            background-color: #025aa5;
+            border-color: #015399
+        }
+
+        .btn-primary:not(:disabled):not(.disabled).active:focus,
+        .btn-primary:not(:disabled):not(.disabled):active:focus,
+        .show>.btn-primary.dropdown-toggle:focus {
+            -webkit-box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .5);
+            box-shadow: 0 0 0 .2rem rgba(2, 117, 216, .5)
+        }
+
+        .btn-clear {
+            color: #0275d8;
+            background-color: #fff;
+            border-color: #0275d8
+        }
+
+        .btn-clear:hover {
+            color: #fff;
+            background-color: #0275d8;
+            border-color: #025aa5
+        }
+
+        .btn-clear.disabled,
+        .btn-clear:disabled {
+            color: #fff;
+            background-color: #0275d8;
+            border-color: #0275d8
+        }
+
+        .btn-clear:not(:disabled):not(.disabled).active,
+        .btn-clear:not(:disabled):not(.disabled):active,
+        .show>.btn-clear.dropdown-toggle {
+            color: #fff;
+            background-color: #025aa5;
+            border-color: #015399
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+            background-color: #eef4fb;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .radiolabel {
+            color: #6c757d;
+        }
+
+        #banner {
+            margin: 0px;
+            height: 60px;
+            background-color: #355075;
+            padding-top: 10px;
+        }
+
+        .Switcher {
+            position: relative;
+            display: -webkit-box;
+            display: flex;
+            border-radius: .25rem;
+            box-shadow: inset 0 0 0 1px;
+            overflow: hidden;
+            cursor: pointer;
+            -webkit-animation: r-n .5s;
+            animation: r-n .5s;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            /* font-size: 3vmin; */
+            will-change: transform;
+        }
+
+        .Switcher__checkbox:checked+.Switcher {
+            -webkit-animation-name: r-p;
+            animation-name: r-p;
+        }
+
+        .Switcher::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 200%;
+            border-radius: inherit;
+            background-color: #0275d8;
+            -webkit-transform: translateX(-75%);
+            transform: translateX(-75%);
+            -webkit-transition: -webkit-transform .5s ease-in-out;
+            transition: -webkit-transform .5s ease-in-out;
+            transition: transform .5s ease-in-out;
+            transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
+        }
+
+        .Switcher__checkbox:checked+.Switcher::before {
+            -webkit-transform: translateX(25%);
+            transform: translateX(25%);
+        }
+
+        .Switcher__trigger {
+            position: relative;
+            z-index: 1;
+            padding: 5.5px 17px;
+        }
+
+        .Switcher__trigger::after {
+            content: attr(data-value);
+        }
+
+        .Switcher__trigger::before {
+            --i: var(--x);
+            content: attr(data-value);
+            position: absolute;
+            color: white;
+            -webkit-transition: opacity .3s;
+            transition: opacity .3s;
+            opacity: calc((var(--i) + 1) / 2);
+            -webkit-transition-delay: calc(.3s * (var(--i) - 1) / -2);
+            transition-delay: calc(.3s * (var(--i) - 1) / -2);
+        }
+
+        .Switcher__checkbox:checked+.Switcher .Switcher__trigger::before {
+            --i: calc(var(--x) * -1);
+        }
+
+        .Switcher__trigger:nth-of-type(1)::before {
+            --x: 1;
+        }
+
+        .Switcher__trigger:nth-of-type(2)::before {
+            --x: -1;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .box {
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-flex: 1;
+            flex: 1;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            flex-wrap: wrap;
+            overflow: hidden;
+            -webkit-perspective: 750px;
+            perspective: 750px;
+            margin-bottom: 10px;
+            color: #0275d8;
+        }
+
+        #togglelabel {
+            color: #6c757d;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        #textboxColumn {
+            width: 75%;
+            height: 100%;
+        }
+
+        #controlColumn {
+            width: 25%;
+            height: 100%;
+        }
+
+        .controlRow{
+            height: 100%;
+        }
+
+        .controlButton {
+            margin: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="banner">
+        <h1>🤖 DMS Address Bot 500<span style="cursor: pointer;"
+                onclick="document.location='https://www.youtube.com/watch?v=dQw4w9WgXcQ'">0</span></h1>
+    </div>
+    <div id="bodyholder">
+        <table id="theTable">
+            <tr>
+                <td id="textBoxColumn">
+                    <div class="tableRow">
+                        <textarea id="input" onscroll="syncScroll()" class="textbox" placeholder="Paste addresses here"
+                            wrap="off"></textarea>
+                    </div>
+                    <div class="tableRow">
+                        <textarea id="output" class="textbox" onscroll="syncScrollReverse()"
+                            placeholder="Parsed addresses will appear here" readonly wrap="off"></textarea>
+                    </div>
+                </td>
+                <td id="controlColumn">
+                    <div class="controlRow">
+                        <div id="controlHolder">
+                            <div class="center" id="clearButton">
+                                <button onclick="clearTextboxes()" class="button btn btn-clear">Clear</button>
+                            </div>
+                            <div id="periodPicker">
+                                <div class="center">
+                                    <button onclick="convertAddresses()" class="button btn btn-primary controlButton">Parse</button>
+                                    <button  onclick="copyResults()" class="button btn btn-clear controlButton">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
 </html>

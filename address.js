@@ -3,7 +3,17 @@ var errorCount = 0;
 var geocoder;
 
 async function mapAddress(addressText) {
+    if (isBlank(addressText)) {
+        return "";
+    }
+
     var add = parseAddress.parseLocation(addressText);
+
+    if (add == null) {
+        errorCount++;
+        return addressText;
+    }
+
     var street1 = myJoin([add.number, add.prefix, add.street, add.type, add.suffix], " ");
     var street2 = myJoin([add.sec_unit_type, add.sec_unit_num], " ");
     var city = add.city;

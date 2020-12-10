@@ -170,6 +170,7 @@ function convert() {
     outputBox.value = input.split("\n")
         .map(convertPeriod)
         .join("\n");
+    syncScroll();
 }
 function convertPeriod(periodStr) {
     var period;
@@ -223,3 +224,37 @@ function copy() {
     copyText.setSelectionRange(0, 99999);
     document.execCommand("copy");
 }
+function syncScroll() {
+    var input = document.getElementById("input");
+    var output = document.getElementById("output");
+    output.scrollTop = input.scrollTop;
+}
+function syncScrollReverse() {
+    var input = document.getElementById("input");
+    var output = document.getElementById("output");
+    input.scrollTop = output.scrollTop;
+}
+function clearBoxes() {
+    document.getElementById("input").value = "";
+    document.getElementById("output").value = "";
+}
+function disableExtraOptions() {
+    document.getElementById("dayOfMonth").disabled = true;
+    document.getElementById("monthOfPeriod").disabled = true;
+    document.getElementById("lineTwo").style.color = "grey";
+}
+function enableExtraOptions() {
+    document.getElementById("dayOfMonth").disabled = false;
+    document.getElementById("monthOfPeriod").disabled = false;
+    document.getElementById("lineTwo").style.color = "black";
+}
+function handleDayUpdate() {
+    var dayType = document.getElementById("dayOfPeriod").value;
+    if (dayType == "exact") {
+        enableExtraOptions();
+    }
+    else {
+        disableExtraOptions();
+    }
+}
+document.addEventListener("readystatechange", handleDayUpdate);

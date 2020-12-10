@@ -369,10 +369,10 @@
         </table>
         <div id="controlHolder">
             <div id="lineOne">
-                <select id="dayOfPeriod">
+                <select id="dayOfPeriod" onchange="handleDayUpdate()">
                     <option value="first">First</option>
                     <option value="last">Last</option>
-                    <option value="Exact">Exact</option>
+                    <option value="exact">Exact</option>
                 </select>
                 <span> day of the </span>
                 <select id="providedOrFollowing">
@@ -389,6 +389,7 @@
             </div>
             <button onclick="convert()">Convert</button>
             <button onclick="copy()">Copy</button>
+            <button onclick="clearBoxes()">Clear</button>
         </div>
     </div>
 </body>

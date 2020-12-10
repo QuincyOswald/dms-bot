@@ -223,6 +223,7 @@ function convert(): void {
     outputBox.value = input.split("\n")
             .map(convertPeriod)
             .join("\n");
+    syncScroll();
 }
 
 function convertPeriod(periodStr: string): string {
@@ -275,3 +276,43 @@ function copy() {
     copyText.setSelectionRange(0, 99999);
     document.execCommand("copy");
 }
+
+function syncScroll(): void {
+    var input = document.getElementById("input");
+    var output = document.getElementById("output");
+    output.scrollTop = input.scrollTop
+}
+
+function syncScrollReverse(): void {
+    var input = document.getElementById("input");
+    var output = document.getElementById("output");
+    input.scrollTop = output.scrollTop
+}
+
+function clearBoxes(): void {
+    (document.getElementById("input") as HTMLInputElement).value = "";
+    (document.getElementById("output")  as HTMLInputElement).value = "";
+}
+
+function disableExtraOptions(): void {
+    (document.getElementById("dayOfMonth") as HTMLInputElement).disabled = true;
+    (document.getElementById("monthOfPeriod") as HTMLInputElement).disabled = true;
+    document.getElementById("lineTwo").style.color = "grey";
+}
+
+function enableExtraOptions(): void {
+    (document.getElementById("dayOfMonth") as HTMLInputElement).disabled = false;
+    (document.getElementById("monthOfPeriod") as HTMLInputElement).disabled = false;
+    document.getElementById("lineTwo").style.color = "black";
+}
+
+function handleDayUpdate(): void {
+    var dayType = (document.getElementById("dayOfPeriod") as HTMLInputElement).value;
+    if (dayType == "exact") {
+        enableExtraOptions();
+    } else {
+        disableExtraOptions();
+    }
+}
+
+document.addEventListener("readystatechange", handleDayUpdate)

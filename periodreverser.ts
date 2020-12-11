@@ -233,7 +233,7 @@ function convertPeriod(periodStr: string): string {
     } catch(e) {
         return e.message;
     }
-    return periodToDay(period).format(JSJoda.DateTimeFormatter.ISO_LOCAL_DATE);
+    return periodToDay(period).format(JSJoda.DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 }
 
 function periodToDay(period: Period): JSJoda.LocalDate {

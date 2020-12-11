@@ -180,7 +180,7 @@ function convertPeriod(periodStr) {
     catch (e) {
         return e.message;
     }
-    return periodToDay(period).format(JSJoda.DateTimeFormatter.ISO_LOCAL_DATE);
+    return periodToDay(period).format(JSJoda.DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 }
 function periodToDay(period) {
     var dayOfPeriod = document.getElementById("dayOfPeriod");

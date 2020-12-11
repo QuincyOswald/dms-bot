@@ -4,6 +4,7 @@
     <title>DMS Bot 5000</title>
     <script src="js-joda.min.js"></script>
     <script src="periodreverser.js"></script>
+    <link rel="stylesheet" type="text/css" href="custom-select.css">
     <link rel="icon" type="image/png" href="favicon.png" />
     <style>
         .tableRow {
@@ -45,7 +46,7 @@
         }
 
         #bodyholder {
-            width: 700px;
+            width: 450px;
             height: 70%;
             margin: auto;
             border-radius: .25rem;
@@ -341,7 +342,24 @@
         #controlHolder {
             border-color: darkgrey;
             border-style: solid;
-            height: 30%;
+            height: 20%;
+            padding: 30px;
+            margin-left: 3px;
+            margin-right: 3px;
+            border: 1px solid #ced4da;
+            text-align: center;
+            border-radius: .25rem;
+            font-size: 15pt;
+            color: #6c757d;
+        }
+
+        .padded {
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        .dropdown {
+            color: inherit;
         }
     </style>
 </head>
@@ -368,28 +386,30 @@
             </tbody>
         </table>
         <div id="controlHolder">
-            <div id="lineOne">
-                <select id="dayOfPeriod" onchange="handleDayUpdate()">
+            <div class="padded" id="lineOne">
+                <select class="custom-select" id="dayOfPeriod" onchange="handleDayUpdate()">
                     <option value="first">First</option>
                     <option value="last">Last</option>
                     <option value="exact">Exact</option>
                 </select>
                 <span> day of the </span>
-                <select id="providedOrFollowing">
+                <select class="custom-select" id="providedOrFollowing">
                     <option value="provided">Provided</option>
                     <option value="following">Following</option>
                 </select>
                 <span>period</span>
             </div>
-            <div id="lineTwo">
+            <div class="padded" id="lineTwo">
                 <input id="dayOfMonth" type="number" min="1" max="31">
                 <span> day of the </span>
                 <input id="monthOfPeriod" type="number" min="1" max="12">
                 <span> month</span>
             </div>
-            <button onclick="convert()">Convert</button>
-            <button onclick="copy()">Copy</button>
-            <button onclick="clearBoxes()">Clear</button>
+            <div class="padded" id="lineThree">
+                <button class="btn btn-primary" onclick="convert()">Convert</button>
+                <button class="btn btn-clear" onclick="copy()">Copy</button>
+                <button class="btn btn-clear" onclick="clearBoxes()">Clear</button>
+            </div>
         </div>
     </div>
 </body>

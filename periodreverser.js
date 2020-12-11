@@ -241,12 +241,12 @@ function clearBoxes() {
 function disableExtraOptions() {
     document.getElementById("dayOfMonth").disabled = true;
     document.getElementById("monthOfPeriod").disabled = true;
-    document.getElementById("lineTwo").style.color = "grey";
+    document.getElementById("lineTwo").style.color = "lightgrey";
 }
 function enableExtraOptions() {
     document.getElementById("dayOfMonth").disabled = false;
     document.getElementById("monthOfPeriod").disabled = false;
-    document.getElementById("lineTwo").style.color = "black";
+    document.getElementById("lineTwo").style.color = "";
 }
 function handleDayUpdate() {
     var dayType = document.getElementById("dayOfPeriod").value;

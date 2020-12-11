@@ -297,13 +297,13 @@ function clearBoxes(): void {
 function disableExtraOptions(): void {
     (document.getElementById("dayOfMonth") as HTMLInputElement).disabled = true;
     (document.getElementById("monthOfPeriod") as HTMLInputElement).disabled = true;
-    document.getElementById("lineTwo").style.color = "grey";
+    document.getElementById("lineTwo").style.color = "lightgrey";
 }
 
 function enableExtraOptions(): void {
     (document.getElementById("dayOfMonth") as HTMLInputElement).disabled = false;
     (document.getElementById("monthOfPeriod") as HTMLInputElement).disabled = false;
-    document.getElementById("lineTwo").style.color = "black";
+    document.getElementById("lineTwo").style.color = "";
 }
 
 function handleDayUpdate(): void {

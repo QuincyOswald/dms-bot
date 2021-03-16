@@ -134,7 +134,7 @@
     <i class="fa fa-fw mr-2 fa-users text-white-50">
         <span class="whats_new_notification notification-dot animated infinite tada"></span>
     </i>
-    <span class="mini-hide js-name">Bulk User Add</span>
+    <span class="mini-hide js-name">Bulk Add Owners</span>
   </a>
 </div>
     `
